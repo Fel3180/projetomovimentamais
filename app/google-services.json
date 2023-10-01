@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627197865848",
+    "project_id": "projeto-movimenta",
+    "storage_bucket": "projeto-movimenta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627197865848:android:4726aa05b58d12c6f0e28d",
+        "android_client_info": {
+          "package_name": "com.example.projetomovimenta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVyw6IuJsxFWU1f3a53bTRXNhw_AL4uwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
