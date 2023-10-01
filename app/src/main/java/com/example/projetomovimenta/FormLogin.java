@@ -31,7 +31,6 @@ public class FormLogin extends AppCompatActivity {
     private ProgressBar progressBar;
     String[]mensagens ={"Preencha todos os campos"};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +38,74 @@ public class FormLogin extends AppCompatActivity {
 
        //getSupportActionBar().hide();
         IniciarComponentes();
-        text_tela_cadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        text_tela_cadastro.setOnClickListener(v -> {
 
-                Intent intent= new Intent(FormLogin.this, FormCadastro.class);
-                startActivity(intent);
+            Intent intent= new Intent(FormLogin.this, FormCadastro.class);
+            startActivity(intent);
+        });
+
+        bt_entrar.setOnClickListener(v -> {
+            String email= edit_email.getText().toString();
+            String senha= edit_senha.getText().toString();
+
+            if (email.isEmpty()||senha.isEmpty()){
+                Snackbar snackbar = Snackbar.make(v, mensagens[0], Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(Color.WHITE);
+                snackbar.setTextColor(Color.BLACK);
+                snackbar.show();
+            }else{
+                AutenticarUsuario(v);
             }
         });
     }
+    private void AutenticarUsuario(View view){
+        String email= edit_email.getText().toString();
+        String senha= edit_senha.getText().toString();
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            TelaPrincipal();
+
+                        }
+                    },3000);
+                }else {
+                    String erro;
+
+                    try {
+                        throw task.getException();
+                    }catch (Exception e){
+                        erro="Erro ao logar usuário";
+                    }
+                    Snackbar snackbar = Snackbar.make(view, erro, Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                        {
+                    }
+                }
+            }
+        });
+    }
+
+    private void TelaPrincipal(){
+        Intent intent=new Intent(FormLogin.this, TelaPrincipal.class);
+        startActivity(intent);
+        finish();
+
+    }
     private void IniciarComponentes(){
         text_tela_cadastro=findViewById(R.id.text_tela_cadastro);
+        edit_email= findViewById(R.id.edit_email);
+        edit_senha=findViewById(R.id.edit_senha);
+        bt_entrar= findViewById(R.id.bt_entrar);
+        progressBar=findViewById(R.id.progressbar);
 
     }
 }
