@@ -12,7 +12,20 @@
           "package_name": "com.example.projetomovimenta"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "627197865848-dphsb7o9cur1nnp568m6j39l92nmd8ag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projetomovimenta",
+            "certificate_hash": "3599ac9f7b88f67a85999c31fe9def79c90d197a"
+          }
+        },
+        {
+          "client_id": "627197865848-10pdtb1lbdq5c98472u9iulhipl0fmes.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDVyw6IuJsxFWU1f3a53bTRXNhw_AL4uwM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627197865848-10pdtb1lbdq5c98472u9iulhipl0fmes.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
