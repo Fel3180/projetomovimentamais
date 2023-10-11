@@ -1,20 +1,19 @@
 package com.example.projetomovimenta;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projetomovimenta.databinding.TelaInicialBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class TelaInicial extends AppCompatActivity {
 
@@ -41,7 +40,7 @@ public class TelaInicial extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.academias, R.id.localizacao, R.id.equipamentos, R.id.imc, R.id.saude)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_tela_inicial);

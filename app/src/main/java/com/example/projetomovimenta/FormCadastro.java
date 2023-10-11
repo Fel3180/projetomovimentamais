@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.projetomovimenta.databinding.ActivityFormLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -78,6 +79,7 @@ public class FormCadastro extends AppCompatActivity {
 
                 Intent intent = new Intent(FormCadastro.this, FormLogin.class);
                 startActivity(intent);
+
             } else {
                 String erro;
                 try {

@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/academiaspublicas"
-            android:icon="@drawable/academia"
+            android:icon="@drawable/baseline_academia_24"
             android:title="Academias Públicas"/>
         <item
             android:id="@+id/localizacao"

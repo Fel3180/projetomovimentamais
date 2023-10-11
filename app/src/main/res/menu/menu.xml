@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/academias"
+            android:icon="@drawable/baseline_academia_24"
+            android:title="Academias públicas"/>
+
+        <item
+            android:id="@+id/localizacao"
+            android:icon="@drawable/baseline_localizacao_24"
+            android:title="Localização das academias"/>
+
+
+        <item
+            android:id="@+id/equipamentos"
+            android:icon="@drawable/baseline_equipamentos_24"
+            android:title="Equipamentos disponíveis"/>
+
+        <item
+            android:id="@+id/imc"
+            android:icon="@drawable/baseline_imc_24"
+            android:title="Cálculo de IMC"/>
+
+    <item
+        android:id="@+id/saude"
+        android:icon="@drawable/baseline_saude_24"
+        android:title="Dicas de saúde e bem estar"/>
+
+    </group>
+</menu>
