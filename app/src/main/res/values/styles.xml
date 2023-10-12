@@ -44,4 +44,10 @@
         <item name="textAllCaps">false</item>
         <item name="android:background">@drawable/button</item>
     </style>
+    <style name="Containers">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">250dp</item>
+        <item name="android:background">@drawable/container_components</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
 </resources>

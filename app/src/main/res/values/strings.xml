@@ -15,4 +15,14 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="txt_peso">Peso(kg)</string>
+    <string name="txt_altura"> Altura(m)</string>
+    <string name="BtnCalcular">Calcular</string>
+    <string name="BtnLimpar">Limpar campos</string>
+    <string name="txt_tabela_interpretação">Interpretação IMC</string>
+    <string name="txt_resultado">Seu Imc: </string>
+    <string name="txt_classificacao">Classificação IMC</string>
+    <string name="txt_titulo_app">Calcúlo de IMC</string>
+    <string name="idTabelaImc">ID da Tabela IMC</string>
+
 </resources>
