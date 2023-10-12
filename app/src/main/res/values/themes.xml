@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ProjetoMovimenta" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+    </style>
+
+    <style name="Theme.ProjetoMovimenta" parent="Base.Theme.ProjetoMovimenta" />
+
+    <style name="Theme.ProjetoMovimenta.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ProjetoMovimenta.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ProjetoMovimenta.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
