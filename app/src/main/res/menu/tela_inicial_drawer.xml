@@ -11,14 +11,19 @@
         <item
             android:id="@+id/localizacao"
             android:icon="@drawable/localizacao"
-            android:title="Localização" />
+            android:title="Localização das academias" />
         <item
             android:id="@+id/imc"
             android:icon="@drawable/imc"
             android:title="Cálculo IMC" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_email"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/saude"
+            android:icon="@drawable/baseline_saude_24"
+            android:title="Dicas de saúde e bem estar" />
+
+        <item
+            android:id="@+id/sair"
+            android:icon="@drawable/baseline_deslogar_24"
+            android:title="Sair"/>
     </group>
 </menu>

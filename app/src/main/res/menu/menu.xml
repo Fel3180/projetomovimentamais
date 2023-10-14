@@ -30,5 +30,10 @@
         android:icon="@drawable/baseline_saude_24"
         android:title="Dicas de saúde e bem estar"/>
 
+    <item
+        android:id="@+id/sair"
+        android:icon="@drawable/baseline_deslogar_24"
+        android:title="Sair"/>
+
     </group>
 </menu>

@@ -1,7 +1,12 @@
 package com.example.projetomovimenta;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,15 +15,33 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
+    private TextView nomeUsuario, emailUsuario;
+    private WebView mWebView;
+
+    private void initComponents() {
+        nomeUsuario = findViewById(R.id.textViewNome);
+        emailUsuario = findViewById(R.id.textViewEmail);
+        mWebView = findViewById(R.id.webview);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initComponents();
 
         drawerLayout = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -33,7 +56,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocalizacaoFragment()).commit();
             navigationView.setCheckedItem(R.id.localizacao);
         }
+
+        String text = "<html><body>"
+                + "<p align=\"justify\">"
+                + getString(R.string.lorem_ipsum)
+                + "</p> "
+                + "</body></html>";
+
+        mWebView.loadData(text, "text/html", "utf-8");
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        if (user != null) {
+//            String email = user.getEmail();
+//            String usuarioID = user.getUid();
+//
+//            if (!Strings.isNullOrEmpty(user.getDisplayName())) {
+//                nomeUsuario.setText(user.getDisplayName());
+//                emailUsuario.setText(email);
+//            } else {
+//                DocumentReference documentReference = db.collection("Usuários").document(usuarioID);
+//                documentReference.addSnapshotListener((documentSnapshot, error) -> {
+//                    if (documentSnapshot != null) {
+//                        nomeUsuario.setText(documentSnapshot.getString("nome"));
+//                        emailUsuario.setText(email);
+//                    }
+//                });
+//            }
+//        }
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -43,15 +100,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             selectedFragment = new AcademiasFragment();
         } else if (menuItem.getItemId() == R.id.localizacao) {
             selectedFragment = new LocalizacaoFragment();
-
         } else if (menuItem.getItemId() == R.id.equipamentos) {
             selectedFragment = new EquipamentosFragment();
-
         } else if (menuItem.getItemId() == R.id.imc) {
             selectedFragment = new CalculoFragment();
-
         } else if (menuItem.getItemId() == R.id.saude) {
             selectedFragment = new DicasFragment();
+        } else if (menuItem.getItemId() == R.id.sair) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            if(user != null) {
+                for (UserInfo profile : user.getProviderData()) {
+                    String providerId = profile.getProviderId();
+
+                    if (providerId.equals("google.com")) {
+                        GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN).revokeAccess()
+                                .addOnCompleteListener(this, task -> {
+                                    if (task.isSuccessful()) {
+                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(menuItem.getActionView()), "Deslogado com sucesso", Snackbar.LENGTH_SHORT);
+                                        snackbar.setBackgroundTint(Color.WHITE);
+                                        snackbar.setTextColor(Color.BLACK);
+                                        snackbar.show();
+                                    } else {
+                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(menuItem.getActionView()), "Erro ao deslogar usuário", Snackbar.LENGTH_SHORT);
+                                        snackbar.setBackgroundTint(Color.WHITE);
+                                        snackbar.setTextColor(Color.BLACK);
+                                        snackbar.show();
+                                    }
+                                });
+
+                    }
+                }
+            }
+
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(MainActivity.this, FormLogin.class);
+            startActivity(intent);
+            finish();
         }
 
         if (selectedFragment != null) {
