@@ -7,18 +7,6 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="91dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="MovimentaMaisImc"
-        android:src="@drawable/icone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="241dp"
@@ -30,7 +18,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <EditText
         android:id="@+id/idCampoPeso"
@@ -68,17 +56,15 @@
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
         android:background="@color/white"
-        android:ems="10"
-        android:hint=""
-        android:importantForAutofill="no"
         android:inputType="numberDecimal"
+        android:ems="10"
+        android:importantForAutofill="no"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
     <Button
         android:id="@+id/idBtnCalcular"
         android:layout_width="131dp"
@@ -96,15 +82,14 @@
         android:id="@+id/idBtnLimpar"
         android:layout_width="131dp"
         android:layout_height="73dp"
-        android:layout_marginEnd="56dp"
-        android:text="Limpar"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/BtnLimpar"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idCampoAltura" />
 
     <EditText
         android:id="@+id/idTabelaImc"
@@ -112,7 +97,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="72dp"
         android:background="@color/white"
         android:gravity="center"
         android:text=""
@@ -120,7 +105,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -138,14 +122,14 @@
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.779" />
+        app:layout_constraintVertical_bias="0.728" />
 
     <TextView
         android:id="@+id/idTxtInformacao"
         android:layout_width="304dp"
         android:layout_height="36dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="336dp"
+        android:layout_marginTop="344dp"
         android:text="Classificação IMC"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -157,7 +141,7 @@
         android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="text"
@@ -165,7 +149,7 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

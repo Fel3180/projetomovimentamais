@@ -26,11 +26,16 @@
             android:textColor="@color/CornflowerBlue"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+
             android:text="Belo Horizonte, conhecida por sua beleza natural e qualidade de vida, oferece uma maneira incrível de manter-se ativo e saudável: suas academias públicas ao ar livre. Espalhadas por toda a cidade, essas academias são um tesouro para os amantes do fitness e aqueles que buscam uma vida mais ativa."
-            android:layout_marginBottom="16dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/exerciseImage"
@@ -47,14 +52,20 @@
             android:textColor="@color/CornflowerBlue"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="viewStart" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:text="Imagine poder se exercitar cercado pela exuberante vegetação de Belo Horizonte. As academias públicas ao ar livre são projetadas para proporcionar uma experiência de treinamento ao ar livre única. Você pode aproveitar os benefícios da natureza enquanto trabalha em sua força, resistência e condicionamento físico."
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word" />
+
 
         <TextView
             android:layout_width="match_parent"
@@ -63,14 +74,17 @@
             android:textColor="@color/CornflowerBlue"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:text="A melhor parte? Todas as academias públicas ao ar livre de Belo Horizonte são gratuitas e abertas a todos. Não importa sua idade, nível de condicionamento físico ou experiência em exercícios, esses locais acolhedores incentivam todos a se exercitarem e aproveitarem os benefícios da atividade física."
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"  />
+
 
         <TextView
             android:layout_width="match_parent"
@@ -79,14 +93,16 @@
             android:text="Comece Sua Jornada de Bem-Estar"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginEnd="16dp"
+            android:textAlignment="viewStart" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Portanto, se você é um residente de Belo Horizonte ou está planejando visitar a cidade, não deixe de explorar as academias públicas ao ar livre. Mantenha-se ativo, aproveite a natureza e faça parte de uma comunidade ativa enquanto descobre as maravilhas do fitness em Belo Horizonte. Sua jornada de bem-estar começa aqui."
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Portanto, se você é um residente de Belo Horizonte ou está planejando visitar a cidade, não deixe de explorar as academias públicas ao ar livre. Mantenha-se ativo, aproveite a natureza e faça parte de uma comunidade ativa enquanto descobre as maravilhas do fitness em Belo Horizonte. Sua jornada de bem-estar começa aqui." />
 
     </LinearLayout>
 </ScrollView>

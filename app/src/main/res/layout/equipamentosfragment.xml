@@ -1,14 +1,447 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:text="Equipamentos disponíveis"
-    android:textSize="30sp"
-    android:textColor="@color/CornflowerBlue"></TextView>
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Equipamentos disponíveis nas academias ao ar livre"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/CornflowerBlue"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="As academias ao ar livre mantidas pela Prefeitura de Belo Horizonte são equipadas com um conjunto de 6 a 12 aparelhos de fácil utilização. Alguns desses equipamentos são projetados para se ajustar às necessidades do usuário, fazendo uso do peso corporal para criar resistência e proporcionar benefícios personalizados. Isso significa que pessoas de todas as idades, pesos e gêneros podem desfrutar dos benefícios desses aparelhos. Contudo, é importante observar que a utilização desses equipamentos é recomendada somente para indivíduos com 12 anos de idade ou mais."
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word" />
+
+<!--        Equipamento 1-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simulador de Cavalgada"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Função: O simulador de cavalgada é projetado para aumentar a mobilidade dos membros inferiores e desenvolver a coordenação motora. É uma opção eficaz para exercitar as pernas e os quadris." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/simulador" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho simulador de cavalgada corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+<!--        Equipamento 2-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Esqui"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função:Aumenta a flexibilidade dos membros inferiores, quadris e
+        membros superiores e melhora a função cardiorrespiratória." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/esqui" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Esqui corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+<!--        Equipamento 3-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alongador"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função: Alonga articulações dos membros superiores, cintura
+escapular, tronco e cintura pélvica." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/alongador" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Alongador corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+        <!--        Equipamento 4-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Multi exercitador"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função: Fortalece, alonga e aumenta a flexibilidade dos
+membros superiores e inferiores." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/multiplo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Multi exercitador corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+        <!--        Equipamento 5-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rotação dupla diagonal e rotação vertical."
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função: Fortalecem os membros
+superiores, melhora a flexibilidade das articulações dos ombros e
+aumenta a mobilidade das articulações dos ombros e dos cotovelos." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/rotacaodiagonal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Rotação dupla diagonal e rotação vertical corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+        <!--        Equipamento 6-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simulador de remo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função: Fortalece a musculatura das costas e ombros." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/remada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Simulador de remo corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+<!--        Equipamento 7-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rotação vertical triplo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função: Fortalece os membros superiores e melhora a
+flexibilidade das articulações dos ombros." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/rotacaoverticaltripla" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Rotação vertical triplo corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+<!--        Equipamento 8-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pressão de pernas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:justificationMode="inter_word"
+            android:text="Função:  Fortalece a musculatura das coxas e quadris,
+melhora a flexibilidade e a agilidade dos membros inferiores, quadris
+e região lombar." />
+
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/pressaopernasduplo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por ginast.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Forma de Utilização: Assista ao vídeo abaixo para aprender como usar o aparelho Pressão de pernas corretamente."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
