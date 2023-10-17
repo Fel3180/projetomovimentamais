@@ -16,9 +16,9 @@
         android:background="@color/black" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_person_outline_24"/>
+        android:layout_width="74dp"
+        android:layout_height="69dp"
+        android:src="@drawable/iconeno" />
 
     <TextView
         android:id="@+id/textViewNome"
@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:text="E-mail do Usuário" />
 
 

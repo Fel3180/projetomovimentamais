@@ -2,36 +2,40 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/black"
         android:orientation="vertical">
 
+        <!--        Equipamento 1-->
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Equipamentos disponíveis nas academias ao ar livre"
+            android:textColor="@color/CornflowerBlue"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/CornflowerBlue"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
             android:text="As academias ao ar livre mantidas pela Prefeitura de Belo Horizonte são equipadas com um conjunto de 6 a 12 aparelhos de fácil utilização. Alguns desses equipamentos são projetados para se ajustar às necessidades do usuário, fazendo uso do peso corporal para criar resistência e proporcionar benefícios personalizados. Isso significa que pessoas de todas as idades, pesos e gêneros podem desfrutar dos benefícios desses aparelhos. Contudo, é importante observar que a utilização desses equipamentos é recomendada somente para indivíduos com 12 anos de idade ou mais."
-            android:layout_marginBottom="16dp"
-            android:justificationMode="inter_word" />
-
-<!--        Equipamento 1-->
+            android:textColor="@color/white" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
             android:text="Simulador de Cavalgada"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -90,8 +94,10 @@
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/white"
             android:justificationMode="inter_word"
             android:text="Função:Aumenta a flexibilidade dos membros inferiores, quadris e

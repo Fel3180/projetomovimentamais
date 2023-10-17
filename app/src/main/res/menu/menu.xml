@@ -31,6 +31,11 @@
         android:title="Dicas de saúde e bem estar"/>
 
     <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="Share"/>
+
+    <item
         android:id="@+id/sair"
         android:icon="@drawable/baseline_deslogar_24"
         android:title="Sair"/>

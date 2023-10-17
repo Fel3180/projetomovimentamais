@@ -137,6 +137,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, FormLogin.class);
             startActivity(intent);
             finish();
+        } else if (menuItem.getItemId()==R.id.share) {Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Confira este Aplicativo");
+            intent.putExtra(Intent.EXTRA_TEXT, "Link do Aplicativo aqui"); // Use EXTRA_TEXT para o corpo do texto
+            startActivity(Intent.createChooser(intent, "Compartilhar"));
+
         }
 
         if (selectedFragment != null) {

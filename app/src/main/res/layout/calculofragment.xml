@@ -122,7 +122,7 @@
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.728" />
+        app:layout_constraintVertical_bias="0.74" />
 
     <TextView
         android:id="@+id/idTxtInformacao"
@@ -145,7 +145,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="text"
-        android:text="Calcúlo de IMC"
+        android:text="Cálculo de IMC"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

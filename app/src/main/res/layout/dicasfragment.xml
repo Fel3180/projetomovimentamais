@@ -1,14 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Dicas de saúde e bem estaer"
-        android:textColor="@color/CornflowerBlue"
-        android:textSize="30sp"></TextView>
-</RelativeLayout>
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dicas de saúde e bem estar"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/CornflowerBlue"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Cuide do seu corpo e mente com essas valiosas dicas de saúde e bem-estar. Em busca de uma vida mais equilibrada e saudável, oferecemos orientações sobre como manter uma rotina ativa, incorporar exercícios ao ar livre, e a importância de se manter hidratado. Descubra como pequenas mudanças diárias podem ter um impacto significativo na sua qualidade de vida. Acompanhe nosso blog para obter insights valiosos e informações atualizadas sobre como promover um estilo de vida saudável e ativo.
+
+    Mantenha-se motivado, inspirado e comprometido com a sua saúde e bem-estar. Sua jornada para uma vida mais saudável começa aqui!"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alongamento antes das Atividades Físicas: Preparando o Corpo para o Movimento"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Antes de começar qualquer atividade física, é essencial preparar o corpo para o movimento. O alongamento desempenha um papel crucial nesse processo, ajudando a evitar lesões e melhorar o desempenho durante o exercício."
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Quando você realiza alongamentos antes do exercício, está aquecendo os músculos, tornando-os mais flexíveis e prontos para o movimento. Isso diminui o risco de lesões musculares, como distensões e rupturas, que podem ocorrer quando os músculos estão frios."
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Lembre-se de que o alongamento deve ser suave e não causar dor. Mantenha cada alongamento por cerca de 15-30 segundos e respire profundamente. Concentre-se em grupos musculares relevantes para a atividade que você realizará. No entanto, não force os músculos além de sua amplitude natural de movimento."
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:justificationMode="inter_word"
+            android:text="Portanto, antes de começar suas atividades físicas, reserve um tempo para alongar. Seu corpo e mente agradecerão, permitindo que você aproveite ao máximo seus exercícios e evite lesões desnecessárias."
+            android:textColor="@color/white" />
+        <ImageView
+            android:layout_width="281dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/alongamento" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por blog.bodytech.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Para aprender a realizar os alongamentos de forma correta, assista ao vídeo."
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/btnWatchVideo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assistir ao Vídeo"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@android:color/holo_green_light"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A importância da água nas atividades físicas"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/agua"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagem de água nas atividades físicas" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Imagem fornecida por blog.ciaathletica.com.br"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manter-se hidratado é essencial para o seu desempenho nas atividades físicas."
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:justificationMode="inter_word" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A água ajuda a regular a temperatura corporal, transportar nutrientes e eliminar toxinas."
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lembre-se de beber água antes, durante e após o exercício."
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Proteja sua pele dos raios solares , ao realizar atividades físicas"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:textColor="@color/CornflowerBlue"
+            android:layout_marginBottom="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Os raios solares podem causar danos à pele e aumentar o risco de queimaduras solares e problemas mais sérios, como o câncer de pele. Para se manter seguro, lembre-se de aplicar protetor solar com um fator de proteção adequado antes de sair para suas atividades físicas ao ar livre. Além disso, opte por roupas leves e um chapéu para uma proteção extra. Cuidar da sua pele é uma parte essencial da sua rotina de exercícios, garantindo que você desfrute dos benefícios do sol de forma segura e saudável."
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:justificationMode="inter_word" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            android:text="Para mais dicas de saúde e bem-estar, visite o blog"
+            android:justificationMode="inter_word" />
+
+        <Button
+            android:id="@+id/idBtnBlog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nutrify Blog"
+            android:textSize="16sp"
+            android:background="@color/black"
+            android:textColor="@color/YellowGreen"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Explore artigos e descubra dicas valiosas para melhorar sua saúde e qualidade de vida. Fique por dentro das últimas tendências em bem-estar e nutrição."
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+</ScrollView>

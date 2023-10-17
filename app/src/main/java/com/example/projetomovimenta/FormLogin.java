@@ -27,7 +27,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.util.Objects;
 import com.example.projetomovimenta.R;
 
-
 public class FormLogin extends AppCompatActivity {
 
     private TextView text_tela_cadastro;
