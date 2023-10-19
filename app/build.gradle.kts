@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
     id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 android {
@@ -60,6 +62,8 @@ dependencies {
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+
 }
 
 

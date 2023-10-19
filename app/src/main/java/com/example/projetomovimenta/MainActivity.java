@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +43,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         initComponents();
+
+        // Crie a lista de academias e adicione academias a ela
+        ArrayList<Academia> academias = new ArrayList<>();
+        academias.add(new Academia("Academia 1", "Regional 1", "Endereço 1"));
+        academias.add(new Academia("Academia 2", "Regional 2", "Endereço 2"));
+        // Adicione quantas academias desejar
+
+        // Para passar a lista de academias para a próxima Activity (MapActivity), você pode usar Intent
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putParcelableArrayListExtra("academias", academias);
+        startActivity(intent);
 
         drawerLayout = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -65,32 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mWebView.loadData(text, "text/html", "utf-8");
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (user != null) {
-//            String email = user.getEmail();
-//            String usuarioID = user.getUid();
-//
-//            if (!Strings.isNullOrEmpty(user.getDisplayName())) {
-//                nomeUsuario.setText(user.getDisplayName());
-//                emailUsuario.setText(email);
-//            } else {
-//                DocumentReference documentReference = db.collection("Usuários").document(usuarioID);
-//                documentReference.addSnapshotListener((documentSnapshot, error) -> {
-//                    if (documentSnapshot != null) {
-//                        nomeUsuario.setText(documentSnapshot.getString("nome"));
-//                        emailUsuario.setText(email);
-//                    }
-//                });
-//            }
-//        }
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -137,7 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, FormLogin.class);
             startActivity(intent);
             finish();
-        } else if (menuItem.getItemId()==R.id.share) {Intent intent = new Intent(Intent.ACTION_SEND);
+        } else if (menuItem.getItemId()==R.id.share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Confira este Aplicativo");
             intent.putExtra(Intent.EXTRA_TEXT, "Link do Aplicativo aqui"); // Use EXTRA_TEXT para o corpo do texto
@@ -162,3 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
+
+
+
+
+
