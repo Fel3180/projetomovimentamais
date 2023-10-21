@@ -43,11 +43,10 @@ public class LocalizacaoFragment extends Fragment {
                 String[] parts = line.split(",");
                 if (parts.length >= 3) {
                     String nomeAcademia = parts[0];
-                    String regional = parts[1];
-                    String endereco = parts[2];
+                    String geometria = parts[1];
 
                     // Exibe os dados da academia no log
-                    Log.d("Dados Academia", "Nome: " + nomeAcademia + " Regional: " + regional + " Endereço: " + endereco);
+                    Log.d("Dados Academia", "nome: " + nomeAcademia + " geometria: " + geometria);
                 }
             }
             is.close(); // Fecha o InputStream após a leitura

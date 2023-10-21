@@ -44,20 +44,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initComponents();
 
-        // Crie a lista de academias e adicione academias a ela
-        ArrayList<Academia> academias = new ArrayList<>();
-        academias.add(new Academia("Academia 1", "Regional 1", "Endereço 1"));
-        academias.add(new Academia("Academia 2", "Regional 2", "Endereço 2"));
-        // Adicione quantas academias desejar
 
-        // Para passar a lista de academias para a próxima Activity (MapActivity), você pode usar Intent
+        ArrayList<Academia> academias = new ArrayList<>();
+        academias.add(new Academia("Academia 1", new Localizacao("612013.719215156", "7799449.95594433")));
+        academias.add(new Academia("Academia 2",   new Localizacao("604741", "7790789")));
+
         Intent intent = new Intent(this, MapActivity.class);
         intent.putParcelableArrayListExtra("academias", academias);
         startActivity(intent);
 
+
         drawerLayout = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationView navigationView = findViewById(R.id.navigation_view); // Alterado para o ID correto
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -78,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mWebView.loadData(text, "text/html", "utf-8");
     }
 
+    // Resto do código da MainActivity...
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment selectedFragment = null;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (menuItem.getItemId() == R.id.sair) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-            if(user != null) {
+            if (user != null) {
                 for (UserInfo profile : user.getProviderData()) {
                     String providerId = profile.getProviderId();
 
@@ -103,18 +104,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN).revokeAccess()
                                 .addOnCompleteListener(this, task -> {
                                     if (task.isSuccessful()) {
-                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(menuItem.getActionView()), "Deslogado com sucesso", Snackbar.LENGTH_SHORT);
+                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getWindow().getDecorView()), "Deslogado com sucesso", Snackbar.LENGTH_SHORT);
                                         snackbar.setBackgroundTint(Color.WHITE);
                                         snackbar.setTextColor(Color.BLACK);
                                         snackbar.show();
                                     } else {
-                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(menuItem.getActionView()), "Erro ao deslogar usuário", Snackbar.LENGTH_SHORT);
+                                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getWindow().getDecorView()), "Erro ao deslogar usuário", Snackbar.LENGTH_SHORT);
                                         snackbar.setBackgroundTint(Color.WHITE);
                                         snackbar.setTextColor(Color.BLACK);
                                         snackbar.show();
                                     }
                                 });
-
                     }
                 }
             }
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, FormLogin.class);
             startActivity(intent);
             finish();
-        } else if (menuItem.getItemId()==R.id.share) {
+        } else if (menuItem.getItemId() == R.id.share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Confira este Aplicativo");
@@ -149,8 +149,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
-
-
-
-
-

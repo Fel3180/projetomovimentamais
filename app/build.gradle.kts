@@ -62,7 +62,9 @@ dependencies {
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
     implementation ("com.google.android.material:material:1.4.0")
-    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("androidx.webkit:webkit:1.4.0") // Exemplo de dependência do WebView
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 
 }
 

@@ -5,32 +5,25 @@ import android.os.Parcelable;
 
 public class Academia implements Parcelable {
     private String nome;
-    private String regional;
-    private String endereco;
+    private Localizacao localizacao;
 
-    public Academia(String nome, String regional, String endereco) {
+    public Academia(String nome, Localizacao localizacao) {
         this.nome = nome;
-        this.regional = regional;
-        this.endereco = endereco;
+        this.localizacao = localizacao;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public String getRegional() {
-        return regional;
-    }
-
-    public String getEndereco() {
-        return endereco;
+    public Localizacao getLocalizacao() {
+        return localizacao;
     }
 
     // Implementação da interface Parcelable
     protected Academia(Parcel in) {
         nome = in.readString();
-        regional = in.readString();
-        endereco = in.readString();
+        localizacao = in.readParcelable(Localizacao.class.getClassLoader());
     }
 
     public static final Creator<Academia> CREATOR = new Creator<Academia>() {
@@ -53,7 +46,6 @@ public class Academia implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nome);
-        dest.writeString(regional);
-        dest.writeString(endereco);
+        dest.writeParcelable(localizacao, flags);
     }
 }
