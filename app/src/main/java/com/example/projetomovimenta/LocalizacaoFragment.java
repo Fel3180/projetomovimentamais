@@ -1,5 +1,6 @@
 package com.example.projetomovimenta;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,13 +33,15 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
     private ArrayList<Academia> academias;
     private AutoCompleteTextView academiaAutoComplete;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.localizacaofragment, container, false);
-        academiaAutoComplete = view.findViewById(R.id.autoCompleteAcademia);
+        academiaAutoComplete = view.findViewById(R.id.autocompletepesquisa);
         academias = readAcademiasFromCSV();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         setupAcademiaAutoComplete();

@@ -49,9 +49,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         academias.add(new Academia("Academia 1", new Localizacao("612013.719215156", "7799449.95594433")));
         academias.add(new Academia("Academia 2",   new Localizacao("604741", "7790789")));
 
-        Intent intent = new Intent(this, MapActivity.class);
-        intent.putParcelableArrayListExtra("academias", academias);
-        startActivity(intent);
+        LocalizacaoFragment localizacaoFragment = new LocalizacaoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("academias", academias);
+        localizacaoFragment.setArguments(bundle);
+
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.autoCompleteAcademia, localizacaoFragment) // Substitua "seu_container_id" pelo ID do contêiner onde o fragmento será exibido
+//                .addToBackStack(null)
+//                .commit();
 
 
         drawerLayout = findViewById(R.id.nav_view);
