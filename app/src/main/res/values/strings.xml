@@ -26,5 +26,7 @@
     <string name="idTabelaImc">ID da Tabela IMC</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et metus eu massa fermentum mattis. Nullam viverra ex eu neque hendrerit, a sollicitudin augue venenatis. Vestibulum ac fringilla purus. Suspendisse vitae quam eu nunc gravida dignissim a non quam. Quisque pellentesque quam sit amet libero dapibus, ac cursus erat scelerisque. Nunc mattis quis elit non dictum. Fusce accumsan laoreet turpis eget elementum. Aenean malesuada vestibulum ex vel convallis. Integer in risus at elit cursus imperdiet. Integer egestas nunc a tempus dictum. Nulla ut fringilla ex. Nullam sagittis est vel odio dignissim, ac semper elit semper. Nullam sed lacus eget sem fringilla mattis. In vulputate eget arcu vel accumsan.
+    <string name="regiao_barreiro">Região Barreiro</string>
+
     </string>
 </resources>

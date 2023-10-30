@@ -1,74 +1,128 @@
 package com.example.projetomovimenta;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-public class LocalizacaoFragment extends Fragment {
-    public LocalizacaoFragment() {
-        // Required empty public constructor
-    }
+public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback {
+    private GoogleMap googleMap;
+    private ArrayList<Academia> academias;
+    private AutoCompleteTextView academiaAutoComplete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.localizacaofragment, container, false);
+        academiaAutoComplete = view.findViewById(R.id.autoCompleteAcademia);
+        academias = readAcademiasFromCSV();
 
-        Button btnLocation = view.findViewById(R.id.btn_location);
-        btnLocation.setOnClickListener(v -> openLocationOnMap());
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
+        setupAcademiaAutoComplete();
         return view;
     }
 
-    private void openLocationOnMap() {
-        // Primeiro, obtenha o recurso do arquivo CSV das academias
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        LatLng beloHorizonte = new LatLng(-19.9167, -43.9345);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(beloHorizonte, 12));
+
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+        showNearbyGyms();
+    }
+
+    private ArrayList<Academia> readAcademiasFromCSV() {
+        ArrayList<Academia> academias = new ArrayList<>();
         try {
-            InputStream is = getResources().openRawResource(R.raw.academias);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            InputStream inputStream = getResources().openRawResource(R.raw.academias);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
-                // Processa cada linha do arquivo CSV com informações das academias
                 String[] parts = line.split(",");
-                if (parts.length >= 3) {
-                    String nomeAcademia = parts[0];
-                    String geometria = parts[1];
-
-                    // Exibe os dados da academia no log
-                    Log.d("Dados Academia", "nome: " + nomeAcademia + " geometria: " + geometria);
+                if (parts.length == 3) {
+                    String nome = parts[0];
+                    String latitude = parts[1];
+                    String longitude = parts[2];
+                    Academia academia = new Academia(nome, new Localizacao(latitude, longitude));
+                    academias.add(academia);
                 }
             }
-            is.close(); // Fecha o InputStream após a leitura
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return academias;
+    }
 
-        // Agora continue com o código para abrir o Google Maps ou o navegador
-        Uri uri = Uri.parse("geo:-19.912998,-43.940933,z=12");
-        Intent locationIntent = new Intent(Intent.ACTION_VIEW, uri);
-        locationIntent.setPackage("com.google.android.apps.maps");
+    private void setupAcademiaAutoComplete() {
+        ArrayList<String> academiaNames = new ArrayList<>();
+        for (Academia academia : academias) {
+            academiaNames.add(academia.getNome());
+        }
 
-        if (locationIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            // O Google Maps está instalado; abra-o
-            startActivity(locationIntent);
-        } else {
-            // O Google Maps não está instalado; forneça uma alternativa
-            Toast.makeText(requireContext(), "O Google Maps não está instalado. Abrindo no navegador.", Toast.LENGTH_SHORT).show();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, academiaNames);
+        academiaAutoComplete.setAdapter(adapter);
 
-            // Abra a localização no navegador
-            locationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps?q=-19.912998,-43.940933"));
-            startActivity(locationIntent);
+        academiaAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedAcademia = parent.getItemAtPosition(position).toString();
+            academiaAutoComplete.setText(selectedAcademia); // Define o texto selecionado no AutoCompleteTextView
+            Toast.makeText(requireContext(), "Academia selecionada: " + selectedAcademia, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void showNearbyGyms() {
+        if (googleMap != null && !academias.isEmpty()) {
+            googleMap.clear();
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+            for (Academia academia : academias) {
+                try {
+                    double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
+                    double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                    LatLng location = new LatLng(latitude, longitude);
+
+                    MarkerOptions markerOptions = new MarkerOptions()
+                            .position(location)
+                            .title(academia.getNome())
+                            .snippet(location.toString());
+
+                    googleMap.addMarker(markerOptions);
+                    builder.include(location); // Inclui a localização do marcador nos limites do mapa
+                } catch (NumberFormatException e) {
+                    Log.e("NumberFormatException", "Valores de latitude/longitude inválidos para academia: " + academia.getNome());
+                }
+            }
+
+            LatLngBounds bounds = builder.build();
+            int padding = 100; // Espaçamento em pixels ao redor dos marcadores
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+            // Movimenta a câmera para mostrar todos os marcadores
+            googleMap.moveCamera(cu);
         }
     }
 }
