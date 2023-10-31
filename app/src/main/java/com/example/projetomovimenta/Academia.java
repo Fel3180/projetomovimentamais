@@ -5,25 +5,35 @@ import android.os.Parcelable;
 
 public class Academia implements Parcelable {
     private String nome;
-    private Localizacao localizacao;
+    private double latitude;
+    private double longitude;
+    private float avaliacao;
 
-    public Academia(String nome, Localizacao localizacao) {
+    public Academia(String nome, double latitude, double longitude, float avaliacao) {
         this.nome = nome;
-        this.localizacao = localizacao;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.avaliacao = avaliacao;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public Localizacao getLocalizacao() {
-        return localizacao;
-    }
-
-    // Implementação da interface Parcelable
     protected Academia(Parcel in) {
         nome = in.readString();
-        localizacao = in.readParcelable(Localizacao.class.getClassLoader());
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        avaliacao = in.readFloat();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeFloat(avaliacao);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Academia> CREATOR = new Creator<Academia>() {
@@ -38,14 +48,23 @@ public class Academia implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getNome() {
+        return nome;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nome);
-        dest.writeParcelable(localizacao, flags);
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public float getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(float avaliacao) {
+        this.avaliacao = avaliacao;
     }
 }

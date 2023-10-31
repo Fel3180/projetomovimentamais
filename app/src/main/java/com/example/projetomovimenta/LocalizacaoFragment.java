@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -34,6 +33,7 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
     private GoogleMap googleMap;
     private ArrayList<Academia> academias;
     private AutoCompleteTextView academiaAutoComplete;
+    private ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         showAllGymsOnMap();
     }
 
+    // Método para simular a leitura de academias de um arquivo CSV
     private ArrayList<Academia> readAcademiasFromCSV() {
         ArrayList<Academia> academias = new ArrayList<>();
         try {
@@ -72,7 +73,7 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
                     String nome = parts[0];
                     String latitude = parts[1];
                     String longitude = parts[2];
-                    Academia academia = new Academia(nome, new Localizacao(latitude, longitude));
+                    Academia academia = new Academia(nome,Double.valueOf(latitude) , Double.valueOf(longitude),Float.valueOf("0.0"));
                     academias.add(academia);
                 }
             }
@@ -98,13 +99,8 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             filterMap(selectedAcademia);
         });
 
-        academiaAutoComplete.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String selectedAcademia = academiaAutoComplete.getText().toString().trim();
-                filterMap(selectedAcademia);
-                return true;
-            }
-            return false;
+        academiaAutoComplete.setOnClickListener(v -> {
+            academiaAutoComplete.showDropDown();
         });
 
         academiaAutoComplete.addTextChangedListener(new TextWatcher() {
@@ -128,12 +124,13 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         });
     }
 
+
     private void showAllGymsOnMap() {
         if (googleMap != null && !academias.isEmpty()) {
             for (Academia academia : academias) {
                 try {
-                    double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
-                    double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                    double latitude = academia.getLatitude();
+                    double longitude = academia.getLongitude();
                     LatLng location = new LatLng(latitude, longitude);
 
                     MarkerOptions markerOptions = new MarkerOptions()
@@ -150,8 +147,8 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (Academia academia : academias) {
                 try {
-                    double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
-                    double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                    double latitude = academia.getLatitude();
+                    double longitude = academia.getLongitude();
                     LatLng location = new LatLng(latitude, longitude);
                     builder.include(location);
                 } catch (NumberFormatException e) {
@@ -173,8 +170,8 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             for (Academia academia : academias) {
                 if (academia.getNome().equals(selectedAcademia)) {
                     try {
-                        double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
-                        double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                        double latitude = academia.getLatitude();
+                        double longitude = academia.getLongitude();
                         LatLng location = new LatLng(latitude, longitude);
 
                         MarkerOptions markerOptions = new MarkerOptions()

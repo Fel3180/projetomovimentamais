@@ -14,14 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regional Barreiro"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold" />
+
     <!-- AutoCompleteTextView para pesquisar e selecionar academias -->
+
     <AutoCompleteTextView
         android:id="@+id/autocompletepesquisa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="68dp"
+        android:drawableEnd="@drawable/baseline_setinha_24"
         android:padding="16dp"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" /> <!-- Use drawableEnd para definir a seta -->
+
+    
 </RelativeLayout>

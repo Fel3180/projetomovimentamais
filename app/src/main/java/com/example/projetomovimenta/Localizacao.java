@@ -20,10 +20,20 @@ public class Localizacao implements Parcelable {
         return longitude;
     }
 
-    // Implementação da interface Parcelable
     protected Localizacao(Parcel in) {
         latitude = in.readString();
         longitude = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Localizacao> CREATOR = new Creator<Localizacao>() {
@@ -37,15 +47,4 @@ public class Localizacao implements Parcelable {
             return new Localizacao[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(latitude);
-        dest.writeString(longitude);
-    }
 }
