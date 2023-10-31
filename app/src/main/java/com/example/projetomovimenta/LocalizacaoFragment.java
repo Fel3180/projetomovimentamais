@@ -1,11 +1,13 @@
 package com.example.projetomovimenta;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -33,7 +35,6 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
     private ArrayList<Academia> academias;
     private AutoCompleteTextView academiaAutoComplete;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.localizacaofragment, container, false);
@@ -56,7 +57,7 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
 
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
-        showNearbyGyms();
+        showAllGymsOnMap();
     }
 
     private ArrayList<Academia> readAcademiasFromCSV() {
@@ -80,7 +81,6 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         }
         return academias;
     }
-
     private void setupAcademiaAutoComplete() {
         ArrayList<String> academiaNames = new ArrayList<>();
         for (Academia academia : academias) {
@@ -92,16 +92,44 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
 
         academiaAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
             String selectedAcademia = parent.getItemAtPosition(position).toString();
-            academiaAutoComplete.setText(selectedAcademia); // Define o texto selecionado no AutoCompleteTextView
+            academiaAutoComplete.setText(selectedAcademia);
             Toast.makeText(requireContext(), "Academia selecionada: " + selectedAcademia, Toast.LENGTH_SHORT).show();
+
+            filterMap(selectedAcademia);
+        });
+
+        academiaAutoComplete.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String selectedAcademia = academiaAutoComplete.getText().toString().trim();
+                filterMap(selectedAcademia);
+                return true;
+            }
+            return false;
+        });
+
+        academiaAutoComplete.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Nada a fazer antes da mudança no texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Nada a fazer enquanto o texto é alterado
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = editable.toString().trim();
+                if (text.isEmpty()) {
+                    showAllGymsOnMap();
+                }
+            }
         });
     }
 
-    private void showNearbyGyms() {
+    private void showAllGymsOnMap() {
         if (googleMap != null && !academias.isEmpty()) {
-            googleMap.clear();
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
             for (Academia academia : academias) {
                 try {
                     double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
@@ -114,18 +142,55 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
                             .snippet(location.toString());
 
                     googleMap.addMarker(markerOptions);
-                    builder.include(location); // Inclui a localização do marcador nos limites do mapa
+                } catch (NumberFormatException e) {
+                    Log.e("NumberFormatException", "Valores de latitude/longitude inválidos para academia: " + academia.getNome());
+                }
+            }
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Academia academia : academias) {
+                try {
+                    double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
+                    double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                    LatLng location = new LatLng(latitude, longitude);
+                    builder.include(location);
                 } catch (NumberFormatException e) {
                     Log.e("NumberFormatException", "Valores de latitude/longitude inválidos para academia: " + academia.getNome());
                 }
             }
 
             LatLngBounds bounds = builder.build();
-            int padding = 100; // Espaçamento em pixels ao redor dos marcadores
+            int padding = 100;
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-
-            // Movimenta a câmera para mostrar todos os marcadores
             googleMap.moveCamera(cu);
+        }
+    }
+
+    private void filterMap(String selectedAcademia) {
+        if (googleMap != null && !academias.isEmpty()) {
+            googleMap.clear();
+
+            for (Academia academia : academias) {
+                if (academia.getNome().equals(selectedAcademia)) {
+                    try {
+                        double latitude = Double.parseDouble(academia.getLocalizacao().getLatitude());
+                        double longitude = Double.parseDouble(academia.getLocalizacao().getLongitude());
+                        LatLng location = new LatLng(latitude, longitude);
+
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .position(location)
+                                .title(academia.getNome())
+                                .snippet(location.toString());
+
+                        googleMap.addMarker(markerOptions);
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(location, 12);
+                        googleMap.moveCamera(cu);
+                        break;
+                    } catch (NumberFormatException e) {
+                        Log.e("NumberFormatException", "Valores de latitude/longitude inválidos para academia: " + academia.getNome());
+                    }
+                }
+            }
         }
     }
 }
