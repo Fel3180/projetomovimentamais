@@ -21,7 +21,7 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.projetomovimenta.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/ratingbar" />
+        tools:layout="@layout/info_window_layout" />
     <item
         android:id="@+id/sair"
         android:icon="@drawable/baseline_deslogar_24"
