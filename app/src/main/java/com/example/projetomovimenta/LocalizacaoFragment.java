@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,8 +64,18 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         this.googleMap = googleMap;
         LatLng beloHorizonte = new LatLng(-19.9167, -43.9345);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(beloHorizonte, 12));
+        showAllAcademiasOnMap();
+        for (Academia academia : academias) {
+            LatLng location = new LatLng(academia.getLatitude(), academia.getLongitude());
 
-        showAllGymsOnMap();
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(location)
+                    .title(academia.getNome())
+                    .snippet("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
+
+            Marker marker = googleMap.addMarker(markerOptions);
+            marker.setTag(academia);
+        }
 
         googleMap.setOnMarkerClickListener(marker -> {
             if (marker.getTag() instanceof Academia) {
@@ -73,37 +84,6 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             }
             return false;
         });
-    }
-
-    private void showInfoWindowWithRatingBar(Marker marker) {
-        if (marker.getTag() instanceof Academia) {
-            Academia academia = (Academia) marker.getTag();
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            LayoutInflater inflater = requireActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.academia_details_view, null);
-            builder.setView(view);
-
-            TextView academiaName = view.findViewById(R.id.academia_name);
-            TextView academiaAddress = view.findViewById(R.id.academia_address);
-            RatingBar academiaRating = view.findViewById(R.id.academia_rating);
-            TextView academiaAverageRating = view.findViewById(R.id.academia_average_rating);
-
-            academiaName.setText(academia.getNome());
-            academiaAddress.setText("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
-
-            // Carregar as avaliações, calcular a média e configurar o RatingBar
-            ArrayList<Float> avaliacoes = academia.carregarAvaliacoes(requireContext());
-            float media = calcularMedia(avaliacoes);
-            academiaAverageRating.setText("Média de Avaliações: " + media);
-
-            // Define o RatingBar com a média das avaliações e torna-o não clicável
-            academiaRating.setIsIndicator(true);
-            academiaRating.setRating(0);
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
     }
 
 
@@ -118,20 +98,26 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         }
         return total / avaliacoes.size();
     }
-
     private void iniciarNavegacao(LatLng localizacaoAcademia) {
-        LatLng userLocation = new LatLng(-20.0000, -44.0000);
-
+        // Cria a URI para abrir o Google Maps para a localização da academia
         Uri gmmIntentUri = Uri.parse("google.navigation:q=" + localizacaoAcademia.latitude + "," + localizacaoAcademia.longitude);
+
+        // Cria um novo intent para abrir o Google Maps
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+        // Define o pacote do Google Maps para o Intent
         mapIntent.setPackage("com.google.android.apps.maps");
 
+        // Verifica se o dispositivo tem o Google Maps instalado e pode lidar com o Intent
         if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            // Inicia a atividade usando o Intent
             startActivity(mapIntent);
+        } else {
+            // Se o Google Maps não estiver instalado, mostra uma mensagem de erro ou oferece uma alternativa
+            Toast.makeText(requireContext(), "Google Maps não está instalado!", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private void showAllGymsOnMap() {
+    private void showAllAcademiasOnMap() {
         if (googleMap != null && !academias.isEmpty()) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
@@ -144,23 +130,68 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
                     MarkerOptions markerOptions = new MarkerOptions()
                             .position(location)
                             .title(academia.getNome())
-                            .snippet(location.toString());
+                            .snippet("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
 
                     Marker marker = googleMap.addMarker(markerOptions);
                     marker.setTag(academia);
 
-                    builder.include(location);
+                    builder.include(location); // Inclui a localização do marcador na área a ser exibida
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
             }
 
             LatLngBounds bounds = builder.build();
-            int padding = 100;
+            int padding = 200; // Espaçamento em pixels ao redor dos marcadores
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
             googleMap.moveCamera(cu);
         }
     }
+
+
+    private void showInfoWindowWithRatingBar(Marker marker) {
+        if (marker.getTag() instanceof Academia) {
+            Academia academia = (Academia) marker.getTag();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            LayoutInflater inflater = requireActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.academia_details_view, null);
+            builder.setView(view);
+
+            TextView academiaName = view.findViewById(R.id.academia_name);
+            TextView academiaAddress = view.findViewById(R.id.academia_address);
+            RatingBar academiaRating = view.findViewById(R.id.academia_rating);
+            TextView academiaAverageRating = view.findViewById(R.id.academia_average_rating);
+            Button tracarRotaButton = view.findViewById(R.id.btn_tracar_rota); // Botão para traçar a rota
+
+            float media = calcularMedia(academia.carregarAvaliacoes(requireContext()));
+            academiaAverageRating.setText("Média de Avaliações: " + media);
+
+            academiaName.setText(academia.getNome());
+            academiaAddress.setText("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
+
+            academiaRating.setRating(0);
+            academiaRating.setIsIndicator(false);
+
+            academiaRating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+                ArrayList<Float> avaliacoes = academia.carregarAvaliacoes(requireContext());
+                avaliacoes.add(rating);
+                academia.salvarAvaliacoes(requireContext(), avaliacoes);
+
+                float novaMedia = calcularMedia(avaliacoes);
+                academiaAverageRating.setText("Média de Avaliações: " + novaMedia);
+
+                academiaRating.setIsIndicator(true);
+            });
+
+            tracarRotaButton.setOnClickListener(v -> iniciarNavegacao(marker.getPosition())); // Inicia a navegação ao clicar no botão
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
 
     private ArrayList<Academia> readAcademiasFromCSV() {
         ArrayList<Academia> academias = new ArrayList<>();
