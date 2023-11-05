@@ -86,15 +86,26 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             TextView academiaName = view.findViewById(R.id.academia_name);
             TextView academiaAddress = view.findViewById(R.id.academia_address);
             RatingBar academiaRating = view.findViewById(R.id.academia_rating);
+            TextView academiaAverageRating = view.findViewById(R.id.academia_average_rating);
+
+            float media = calcularMedia(academia.carregarAvaliacoes(requireContext()));
+            academiaAverageRating.setText("Média de Avaliações: " + media);
 
             academiaName.setText(academia.getNome());
             academiaAddress.setText("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
-            academiaRating.setRating(calcularMedia(academia.carregarAvaliacoes(requireContext())));
+
+            academiaRating.setRating(0); // Define o RatingBar para estrelas apagadas no início
+            academiaRating.setIsIndicator(false); // Torna o RatingBar interativo para avaliação
 
             academiaRating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
                 ArrayList<Float> avaliacoes = academia.carregarAvaliacoes(requireContext());
                 avaliacoes.add(rating);
                 academia.salvarAvaliacoes(requireContext(), avaliacoes);
+
+                float novaMedia = calcularMedia(avaliacoes);
+                academiaAverageRating.setText("Média de Avaliações: " + novaMedia);
+
+                academiaRating.setIsIndicator(true); // Torna o RatingBar não interativo após avaliação
             });
 
             AlertDialog dialog = builder.create();
@@ -112,14 +123,8 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         for (Float avaliacao : avaliacoes) {
             total += avaliacao;
         }
-        float media = total / avaliacoes.size();
-
-        String textoMedia = "Média de Avaliações: " + media;
-        academiaAverageRating.setText(textoMedia);
-
-        return media;
+        return total / avaliacoes.size();
     }
-
     private ArrayList<Academia> readAcademiasFromCSV() {
         ArrayList<Academia> academias = new ArrayList<>();
         try {
