@@ -37,4 +37,11 @@
         android:text="Média de Avaliações: "
         android:textSize="14sp" />
 
+    <Button
+        android:id="@+id/btn_tracar_rota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/academia_average_rating"
+        android:text="Traçar Rota"
+        android:onClick="tracarRota" />
 </RelativeLayout>
