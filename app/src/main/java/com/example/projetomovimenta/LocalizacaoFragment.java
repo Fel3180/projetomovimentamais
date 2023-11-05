@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -88,34 +88,24 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             TextView academiaAddress = view.findViewById(R.id.academia_address);
             RatingBar academiaRating = view.findViewById(R.id.academia_rating);
             TextView academiaAverageRating = view.findViewById(R.id.academia_average_rating);
-            Button tracarRotaButton = view.findViewById(R.id.btn_tracar_rota); // Botão para traçar a rota
-
-            float media = calcularMedia(academia.carregarAvaliacoes(requireContext()));
-            academiaAverageRating.setText("Média de Avaliações: " + media);
 
             academiaName.setText(academia.getNome());
             academiaAddress.setText("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
 
+            // Carregar as avaliações, calcular a média e configurar o RatingBar
+            ArrayList<Float> avaliacoes = academia.carregarAvaliacoes(requireContext());
+            float media = calcularMedia(avaliacoes);
+            academiaAverageRating.setText("Média de Avaliações: " + media);
+
+            // Define o RatingBar com a média das avaliações e torna-o não clicável
+            academiaRating.setIsIndicator(true);
             academiaRating.setRating(0);
-            academiaRating.setIsIndicator(false);
-
-            academiaRating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-                ArrayList<Float> avaliacoes = academia.carregarAvaliacoes(requireContext());
-                avaliacoes.add(rating);
-                academia.salvarAvaliacoes(requireContext(), avaliacoes);
-
-                float novaMedia = calcularMedia(avaliacoes);
-                academiaAverageRating.setText("Média de Avaliações: " + novaMedia);
-
-                academiaRating.setIsIndicator(true);
-            });
-
-            tracarRotaButton.setOnClickListener(v -> iniciarNavegacao(marker.getPosition())); // Inicia a navegação ao clicar no botão
 
             AlertDialog dialog = builder.create();
             dialog.show();
         }
     }
+
 
     private float calcularMedia(ArrayList<Float> avaliacoes) {
         if (avaliacoes.isEmpty()) {
@@ -230,7 +220,16 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
                                 .title(academia.getNome())
                                 .snippet(location.toString());
 
-                        googleMap.addMarker(markerOptions);
+                        Marker marker1 = googleMap.addMarker(markerOptions);
+                        marker1.setTag(academia);
+
+                        googleMap.setOnMarkerClickListener(marker -> {
+                            if (marker.getTag() instanceof Academia) {
+                                showInfoWindowWithRatingBar(marker);
+                                return true;
+                            }
+                            return false;
+                        });
                         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(location, 18);
                         googleMap.moveCamera(cu);
                         break;
