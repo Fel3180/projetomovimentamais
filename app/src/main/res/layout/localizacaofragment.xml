@@ -28,7 +28,7 @@
         android:layout_marginTop="68dp"
         android:drawableEnd="@drawable/baseline_setinha_24"
         android:padding="16dp"
-        android:textColor="@android:color/white" /> <!-- Use drawableEnd para definir a seta -->
+        android:textColor="@android:color/black" /> <!-- Use drawableEnd para definir a seta -->
 
     <!-- Layout para exibir detalhes da academia -->
     <FrameLayout

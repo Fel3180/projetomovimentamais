@@ -17,11 +17,17 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="viewStart"
             android:textColor="@color/CornflowerBlue"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+
             android:justificationMode="inter_word"
             android:text="Cuide do seu corpo e mente com essas valiosas dicas de saúde e bem-estar. Em busca de uma vida mais equilibrada e saudável, oferecemos orientações sobre como manter uma rotina ativa, incorporar exercícios ao ar livre, e a importância de se manter hidratado. Descubra como pequenas mudanças diárias podem ter um impacto significativo na sua qualidade de vida. Acompanhe nosso blog para obter insights valiosos e informações atualizadas sobre como promover um estilo de vida saudável e ativo.
 
@@ -35,35 +41,46 @@
             android:textSize="19sp"
             android:textStyle="bold"
             android:textColor="@color/CornflowerBlue"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:justificationMode="inter_word"
             android:text="Antes de começar qualquer atividade física, é essencial preparar o corpo para o movimento. O alongamento desempenha um papel crucial nesse processo, ajudando a evitar lesões e melhorar o desempenho durante o exercício."
             android:textColor="@color/white" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+
             android:justificationMode="inter_word"
             android:text="Quando você realiza alongamentos antes do exercício, está aquecendo os músculos, tornando-os mais flexíveis e prontos para o movimento. Isso diminui o risco de lesões musculares, como distensões e rupturas, que podem ocorrer quando os músculos estão frios."
             android:textColor="@color/white" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:justificationMode="inter_word"
             android:text="Lembre-se de que o alongamento deve ser suave e não causar dor. Mantenha cada alongamento por cerca de 15-30 segundos e respire profundamente. Concentre-se em grupos musculares relevantes para a atividade que você realizará. No entanto, não force os músculos além de sua amplitude natural de movimento."
             android:textColor="@color/white" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="340dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:justificationMode="inter_word"
             android:text="Portanto, antes de começar suas atividades físicas, reserve um tempo para alongar. Seu corpo e mente agradecerão, permitindo que você aproveite ao máximo seus exercícios e evite lesões desnecessárias."
@@ -110,6 +127,8 @@
             android:textSize="19sp"
             android:textStyle="bold"
             android:textColor="@color/CornflowerBlue"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp" />
         <ImageView
             android:layout_width="match_parent"
@@ -157,6 +176,8 @@
             android:text="Proteja sua pele dos raios solares , ao realizar atividades físicas"
             android:textSize="19sp"
             android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/CornflowerBlue"
             android:layout_marginBottom="8dp" />
         <TextView
