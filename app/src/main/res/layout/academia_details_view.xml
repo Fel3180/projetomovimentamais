@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/academia_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome da Academia"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/academia_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/academia_name"
+        android:text="Endereço da Academia"
+        android:textSize="14sp" />
+
+    <RatingBar
+        android:id="@+id/academia_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/academia_address"
+        android:numStars="5"
+        android:stepSize="1"
+        android:rating="0.0" />
+
+    <TextView
+        android:id="@+id/academia_average_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/academia_rating"
+        android:text="Média de Avaliações: "
+        android:textSize="14sp" />
+
+</RelativeLayout>

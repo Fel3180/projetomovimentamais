@@ -46,10 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         ArrayList<Academia> academias = new ArrayList<>();
-        academias.add(new Academia("Academia 1", 612013.719215156, 7799449.95594433, 4.0f));
-        academias.add(new Academia("Academia 2", 604741, 7790789, 3.5f));
-
-
+        ArrayList<Float> avaliacoes = new ArrayList<>();
+        avaliacoes.add(4.0f);
+        avaliacoes.add(3.5f);
+        avaliacoes.add(5.0f);
+        academias.add(new Academia("Academia 1", 612013.719215156, 7799449.95594433, avaliacoes));
 
         LocalizacaoFragment localizacaoFragment = new LocalizacaoFragment();
         Bundle bundle = new Bundle();
