@@ -98,6 +98,9 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
         }
         return total / avaliacoes.size();
     }
+    private String formatarMedia(float media) {
+        return String.format("%.2f", media); // Formata a média para exibir apenas 2 casas decimais
+    }
     private void iniciarNavegacao(LatLng localizacaoAcademia) {
         // Cria a URI para abrir o Google Maps para a localização da academia
         Uri gmmIntentUri = Uri.parse("google.navigation:q=" + localizacaoAcademia.latitude + "," + localizacaoAcademia.longitude);
@@ -166,7 +169,7 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
             Button tracarRotaButton = view.findViewById(R.id.btn_tracar_rota); // Botão para traçar a rota
 
             float media = calcularMedia(academia.carregarAvaliacoes(requireContext()));
-            academiaAverageRating.setText("Média de Avaliações: " + media);
+            academiaAverageRating.setText("Média de Avaliações: " + formatarMedia(media));
 
             academiaName.setText(academia.getNome());
             academiaAddress.setText("Latitude: " + academia.getLatitude() + ", Longitude: " + academia.getLongitude());
@@ -179,8 +182,6 @@ public class LocalizacaoFragment extends Fragment implements OnMapReadyCallback 
                 avaliacoes.add(rating);
                 academia.salvarAvaliacoes(requireContext(), avaliacoes);
 
-                float novaMedia = calcularMedia(avaliacoes);
-                academiaAverageRating.setText("Média de Avaliações: " + novaMedia);
 
                 academiaRating.setIsIndicator(true);
             });
