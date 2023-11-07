@@ -69,6 +69,8 @@ dependencies {
     implementation ("com.google.android.libraries.places:places:2.7.0")
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
+    implementation ("com.google.android.gms:play-services-auth:19.2.0")
+
 
 
 

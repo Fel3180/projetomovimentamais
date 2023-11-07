@@ -3,7 +3,9 @@ package com.example.projetomovimenta;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         initComponents();
-
 
         ArrayList<Academia> academias = new ArrayList<>();
         ArrayList<Float> avaliacoes = new ArrayList<>();
@@ -85,8 +88,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mWebView.loadData(text, "text/html", "utf-8");
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    // Resto do código da MainActivity...
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+            String usuarioID = currentUser.getUid();
+
+            NavigationView navigationView = findViewById(R.id.navigation_view);
+            View headerView = navigationView.getHeaderView(0); // Obtenha a referência para o cabeçalho
+
+            TextView nomeUsuario = headerView.findViewById(R.id.textViewNome);
+            TextView emailUsuario = headerView.findViewById(R.id.textViewEmail);
+
+            if (!TextUtils.isEmpty(currentUser.getDisplayName())) {
+                nomeUsuario.setText(currentUser.getDisplayName());
+                emailUsuario.setText(email);
+            } else {
+                DocumentReference documentReference = db.collection("Usuários").document(usuarioID);
+                documentReference.addSnapshotListener((documentSnapshot, error) -> {
+                    if (documentSnapshot != null && documentSnapshot.exists()) {
+                        nomeUsuario.setText(documentSnapshot.getString("nome"));
+                        emailUsuario.setText(email);
+                    }
+                });
+            }
+        }
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

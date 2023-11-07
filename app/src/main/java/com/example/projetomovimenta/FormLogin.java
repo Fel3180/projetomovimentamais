@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,12 +23,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import java.util.Objects;
-import com.example.projetomovimenta.R;
 
 public class FormLogin extends AppCompatActivity {
 
@@ -33,9 +37,11 @@ public class FormLogin extends AppCompatActivity {
     private EditText edit_email, edit_senha;
     private Button bt_entrar;
     private ProgressBar progressBar;
+
+    private DrawerLayout drawerLayout;
+    private ImageView btnGoogleLogin;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    private ImageView btnGoogleLogin;
     private static final int RC_SIGN_IN = 123;
     String[] mensagens = {"Preencha todos os campos"};
 
@@ -43,6 +49,7 @@ public class FormLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_login);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -66,7 +73,7 @@ public class FormLogin extends AppCompatActivity {
             }
         });
 
-        // Configurar o clique no botão de login do Google
+        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
         btnGoogleLogin.setOnClickListener(view -> signInWithGoogle());
 
         // Configurar as opções do login do Google
@@ -87,33 +94,38 @@ public class FormLogin extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     if (task.isSuccessful()) {
                         new Handler().postDelayed(this::TelaPrincipal, 3000);
                     } else {
-                        String erro;
-                        try {
-                            throw Objects.requireNonNull(task.getException());
-                        } catch (Exception e) {
-                            erro = "Erro ao logar usuário";
-                            e.printStackTrace();
+                        if (task.getException() != null) {
+                            String erro = "Erro ao logar usuário: " + task.getException().getMessage();
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), erro, Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(Color.WHITE);
+                            snackbar.setTextColor(Color.BLACK);
+                            snackbar.show();
+
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthInvalidUserException e) {
+                                // Tratar erro de usuário inválido
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                // Tratar erro de credenciais inválidas
+                            } catch (FirebaseNetworkException e) {
+                                // Tratar erro de rede
+                            } catch (Exception e) {
+                                // Tratar outros erros
+                            }
+                        } else {
+                            String erro = "Erro ao logar usuário: Desconhecido";
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), erro, Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(Color.WHITE);
+                            snackbar.setTextColor(Color.BLACK);
+                            snackbar.show();
                         }
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), erro, Snackbar.LENGTH_SHORT);
-                        snackbar.setBackgroundTint(Color.WHITE);
-                        snackbar.setTextColor(Color.BLACK);
-                        snackbar.show();
                     }
                 });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user != null) {
-            TelaPrincipal();
-        }
     }
 
     private void TelaPrincipal() {
@@ -134,6 +146,7 @@ public class FormLogin extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -141,6 +154,7 @@ public class FormLogin extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 e.printStackTrace();
+                // Tratar erro na autenticação com o Google conforme necessário
             }
         }
     }
@@ -159,5 +173,21 @@ public class FormLogin extends AppCompatActivity {
                         snackbar.show();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void fazerLogout() {
+        mAuth.signOut();
+        Intent loginIntent = new Intent(FormLogin.this, FormLogin.class);
+        startActivity(loginIntent);
+        finish();
     }
 }

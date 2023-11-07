@@ -212,7 +212,7 @@ membros superiores e inferiores." />
             android:layout_height="187dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:src="@drawable/multiplo" />
+            android:src="@drawable/multi_exercitador" />
 
         <TextView
             android:layout_width="match_parent"
@@ -316,7 +316,7 @@ aumenta a mobilidade das articulações dos ombros e dos cotovelos." />
             android:layout_height="187dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:src="@drawable/remada" />
+            android:src="@drawable/remo" />
 
         <TextView
             android:layout_width="match_parent"

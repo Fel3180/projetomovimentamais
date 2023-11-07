@@ -34,11 +34,7 @@ public class TelaPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-
-        //getSupportActionBar().hide();
         initComponents();
-
-        bt_deslogar.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -53,7 +49,6 @@ public class TelaPrincipal extends AppCompatActivity {
             nomeUsuario.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
             emailUsuario.setText(email);
         } else {
-
             DocumentReference documentReference = db.collection("Usuários").document(usuarioID);
             documentReference.addSnapshotListener((documentSnapshot, error) -> {
                 if (documentSnapshot != null) {
@@ -62,17 +57,8 @@ public class TelaPrincipal extends AppCompatActivity {
                 }
             });
         }
-
-        FirebaseAuth.getInstance().signOut();
     }
-
-    private void initComponents() {
-        nomeUsuario = findViewById(R.id.textNomeUsuario);
-        emailUsuario = findViewById(R.id.textEmailUsuario);
-        bt_deslogar = findViewById(R.id.bt_deslogar);
-    }
-
-    private void onClick(View v) {
+    private void signOutAndRedirect() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
@@ -84,18 +70,17 @@ public class TelaPrincipal extends AppCompatActivity {
                 GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN).revokeAccess()
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
-                                Snackbar snackbar = Snackbar.make(v, "Deslogado com sucesso", Snackbar.LENGTH_SHORT);
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Deslogado com sucesso", Snackbar.LENGTH_SHORT);
                                 snackbar.setBackgroundTint(Color.WHITE);
                                 snackbar.setTextColor(Color.BLACK);
                                 snackbar.show();
                             } else {
-                                Snackbar snackbar = Snackbar.make(v, "Erro ao deslogar usuário", Snackbar.LENGTH_SHORT);
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Erro ao deslogar usuário", Snackbar.LENGTH_SHORT);
                                 snackbar.setBackgroundTint(Color.WHITE);
                                 snackbar.setTextColor(Color.BLACK);
                                 snackbar.show();
                             }
                         });
-
             }
         }
 
@@ -105,11 +90,57 @@ public class TelaPrincipal extends AppCompatActivity {
         finish();
     }
 
+    private void initComponents() {
+        nomeUsuario = findViewById(R.id.textNomeUsuario);
+        emailUsuario = findViewById(R.id.textEmailUsuario);
+        bt_deslogar = findViewById(R.id.bt_deslogar);
+        bt_deslogar.setOnClickListener(this::onClick);
+    }
+
+    private void onClick(View v) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                String providerId = profile.getProviderId();
+
+                if (providerId.equals("google.com")) {
+                    GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN).revokeAccess()
+                            .addOnCompleteListener(this, task -> {
+                                if (task.isSuccessful()) {
+                                    showSnackbar("Deslogado com sucesso");
+                                } else {
+                                    showSnackbar("Erro ao deslogar usuário");
+                                }
+                            });
+                }
+            }
+
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(TelaPrincipal.this, FormLogin.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Usuário não está logado, talvez redirecione para a tela de login
+            Intent intent = new Intent(TelaPrincipal.this, FormLogin.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(Color.WHITE);
+        snackbar.setTextColor(Color.BLACK);
+        snackbar.show();
+    }
+
     public static class DeslogarFragment extends Fragment {
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.academiafragment,container,false);
+            return inflater.inflate(R.layout.academiafragment, container, false);
         }
     }
 }
